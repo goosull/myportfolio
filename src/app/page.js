@@ -1,47 +1,174 @@
-import CursorGradient from "@/cursorgradient";
+"use client";
+
+import { useState, useEffect } from "react";
+import About from "@/About";
+import CursorGradient from "@/CursorGradient";
 
 export default function Home() {
-  return (
-    <div className="relative h-screen w-screen overflow-auto">
-      {/* 그라데이션 효과 */}
-      <CursorGradient />
+  const [activeSection, setActiveSection] = useState("about");
 
-      {/* 콘텐츠 영역 */}
-      <div className="relative z-10 overflow-auto my-32">
-        <div className="container px-24 mx-auto">
-          <div
-            className="flex flex-col lg:flex-row gap-4"
-            style={{ fontFamily: "Pretendard, sans-serif" }}
+  const handleScroll = () => {
+    const aboutSection = document.getElementById("about");
+    const experienceSection = document.getElementById("experience");
+    const projectsSection = document.getElementById("projects");
+
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+    if (scrollPosition >= projectsSection.offsetTop) {
+      setActiveSection("projects");
+    } else if (scrollPosition >= experienceSection.offsetTop) {
+      setActiveSection("experience");
+    } else {
+      setActiveSection("about");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <>
+      <div className="relative">
+        <CursorGradient />
+        <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0">
+          <a
+            href="#content"
+            className="absolute left-0 top-0 block -translate-x-full rounded bg-gradient-to-br from-teal-400 via-blue-500 to-purple-600 px-4 py-3 text-sm font-bold uppercase tracking-widest text-white focus-visible:translate-x-0"
           >
-            <div className="w-full lg:w-1/2 flex text-gray-300 items-center break-down">
-              음식은 사람과 사람을 이어주는 매개체입니다. 맛있는 음식을 만들기
-              위해 노력하는 것은 단순히 맛을 내는 것 이상의 의미가 있습니다.
-              그것은 사람들의 마음을 움직이고, 그들의 삶을 풍요롭게 합니다.
-              결국, 음식은 사랑과 배려의 표현입니다.
-            </div>
-            <div className="w-full lg:w-1/2 flex-col text-gray-300 break-down">
-              <p className="my-3">
-                사업이란 결국 사람을 상대하는 일입니다. 아무리 좋은 상품이나
-                서비스를 만들어도, 사람의 마음을 얻지 못하면 성공할 수 없습니다.
-                고객의 입장에서 생각하고, 그들에게 진심을 다해 다가가야 합니다.
-                <span className="font-bold"> 진심은 통하는 법입니다.</span>
-              </p>
-              <p className="my-3">
-                어려운 상황에서 포기하지 마세요. 성공은 계속해서 도전하고 실패를
-                통해 얻어지는 것입니다. 실패를 두려워하지 말고, 실패에서 배워 더
-                나은 길을 찾는 것이 중요합니다. 그 과정이 곧 성공으로 가는
-                길입니다.
-              </p>
-              <p className="my-3">
-                모든 일에는 기본이 중요합니다. 요리든 사업이든 기본에 충실하지
-                않으면 쉽게 무너집니다. 기본을 다지면 위기가 왔을 때도 흔들리지
-                않고 견딜 수 있습니다. 기본이 탄탄한 사람이 결국 끝까지
-                살아남습니다.
-              </p>
-            </div>
+            Skip to Content
+          </a>
+
+          <div className="lg:flex lg:justify-between lg:gap-4">
+            <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
+              <div>
+                <h1
+                  className="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl"
+                  style={{ fontFamily: "Pretendard, sans-serif" }}
+                >
+                  김승원
+                </h1>
+                <h2
+                  className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl"
+                  style={{ fontFamily: "Pretendard, sans-serif" }}
+                >
+                  프론트엔드 개발자
+                </h2>
+                <p
+                  className="mt-4 max-w-xs leading-normal text-slate-200"
+                  style={{ fontFamily: "Pretendard, sans-serif" }}
+                >
+                  직관적이고 접근 가능한 디지털 경험을 만듭니다.
+                </p>
+
+                {/* 네비게이션 */}
+                <nav
+                  className="nav hidden lg:block"
+                  aria-label="In-page jump links"
+                >
+                  <ul className="mt-16 w-max">
+                    <li>
+                      <a
+                        className={`group flex items-center py-3 ${
+                          activeSection === "about" ? "active" : ""
+                        }`}
+                        href="#about"
+                      >
+                        <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200"></span>
+                        <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">
+                          About
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className={`group flex items-center py-3 ${
+                          activeSection === "experience" ? "active" : ""
+                        }`}
+                        href="#experience"
+                      >
+                        <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200"></span>
+                        <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">
+                          Experience
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className={`group flex items-center py-3 ${
+                          activeSection === "projects" ? "active" : ""
+                        }`}
+                        href="#projects"
+                      >
+                        <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200"></span>
+                        <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">
+                          Projects
+                        </span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </header>
+
+            {/* 오른쪽 스크롤 가능한 콘텐츠 영역 */}
+            <main id="content" className="lg:w-1/2 lg:py-24">
+              <section
+                id="about"
+                className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
+                aria-label="About me"
+              >
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+              </section>
+              <section
+                id="experience"
+                className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
+                aria-label="Experience"
+              >
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+              </section>
+              <section
+                id="projects"
+                className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
+                aria-label="Projects"
+              >
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+                <About />
+              </section>
+            </main>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

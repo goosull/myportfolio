@@ -6,7 +6,10 @@ export default function CursorGradient() {
 
   useEffect(() => {
     const handleMouseMove = (event) => {
-      setCursorPosition({ x: event.clientX, y: event.clientY });
+      setCursorPosition({
+        x: event.clientX,
+        y: event.clientY + window.scrollY,
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
