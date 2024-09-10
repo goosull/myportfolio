@@ -34,7 +34,7 @@ export default function CursorGradient() {
       // 마우스가 움직이면 크기 증가
       intervalId = setInterval(() => {
         setSize((prevSize) => Math.min(prevSize + 5, 1200)); // 최대 크기 1200px로 제한
-      }, 100);
+      }, 1000);
     } else {
       // 마우스가 멈추면 크기와 밝기를 서서히 감소
       intervalId = setInterval(() => {
@@ -46,7 +46,7 @@ export default function CursorGradient() {
   }, [isMoving]);
 
   // 크기에 맞는 밝기 계산
-  const brightness = Math.min((size - 600) / 600 + 0.2, 1); // 최소 0.2, 최대 1까지 밝기 설정
+  const brightness = Math.min((size - 600) / 600 + 0.1, 1); // 최소 0.1, 최대 1까지 밝기 설정
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
