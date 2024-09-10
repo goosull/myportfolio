@@ -1,34 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import About from "@/About";
 import CursorGradient from "@/CursorGradient";
+import Navbar from "@/Navbar";
+import Card from "@/Card";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("about");
-
-  const handleScroll = () => {
-    const aboutSection = document.getElementById("about");
-    const experienceSection = document.getElementById("experience");
-    const projectsSection = document.getElementById("projects");
-
-    const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-    if (scrollPosition >= projectsSection.offsetTop) {
-      setActiveSection("projects");
-    } else if (scrollPosition >= experienceSection.offsetTop) {
-      setActiveSection("experience");
-    } else {
-      setActiveSection("about");
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <>
@@ -64,53 +43,11 @@ export default function Home() {
                   직관적이고 접근 가능한 디지털 경험을 만듭니다.
                 </p>
 
-                {/* 네비게이션 */}
-                <nav
-                  className="nav hidden lg:block"
-                  aria-label="In-page jump links"
-                >
-                  <ul className="mt-16 w-max">
-                    <li>
-                      <a
-                        className={`group flex items-center py-3 ${
-                          activeSection === "about" ? "active" : ""
-                        }`}
-                        href="#about"
-                      >
-                        <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200"></span>
-                        <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">
-                          About
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className={`group flex items-center py-3 ${
-                          activeSection === "experience" ? "active" : ""
-                        }`}
-                        href="#experience"
-                      >
-                        <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200"></span>
-                        <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">
-                          Experience
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className={`group flex items-center py-3 ${
-                          activeSection === "projects" ? "active" : ""
-                        }`}
-                        href="#projects"
-                      >
-                        <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-slate-200"></span>
-                        <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">
-                          Projects
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+                {/* Navbar 컴포넌트를 여기서 호출 */}
+                <Navbar
+                  activeSection={activeSection}
+                  setActiveSection={setActiveSection}
+                />
               </div>
             </header>
 
@@ -122,15 +59,7 @@ export default function Home() {
                 aria-label="About me"
               >
                 <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
+                <About /> <About /> <About /> <About /> <About /> <About />s
               </section>
               <section
                 id="experience"
@@ -138,32 +67,18 @@ export default function Home() {
                 aria-label="Experience"
               >
                 <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
               </section>
               <section
                 id="projects"
                 className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
                 aria-label="Projects"
               >
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
-                <About />
+                <Card
+                  title="Noteworthy technology acquisitions 2021"
+                  description={
+                    "Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order."
+                  }
+                />
               </section>
             </main>
           </div>
